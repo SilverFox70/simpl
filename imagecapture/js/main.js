@@ -33,6 +33,8 @@ if (!isSecureOrigin) {
 var constraints;
 var imageCapture;
 var mediaStream;
+var mediaStreamTrack;
+var settings;
 
 var grabFrameButton = document.querySelector('button#grabFrame');
 var takePhotoButton = document.querySelector('button#takePhoto');
@@ -101,6 +103,11 @@ function gotStream(stream) {
   } else {
     video.src = stream;
   }
+  mediaStreamTrack = stream.getVideoTracks()[0];
+  settings = mediaStreamTrack.getSettings();
+  console.log('settings: ', settings);
+  var caps = mediaStreamTrack.getCapabilities();
+  console.log('stream capabilities', caps);
   imageCapture = new ImageCapture(stream.getVideoTracks()[0]);
   getCapabilities();
 }
